@@ -1,0 +1,80 @@
+\documentclass[a4paper]{article}
+
+\usepackage{datetime}
+\newdate{date}{16}{03}{2018}
+\date{\displaydate{date}}
+
+
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=1in,bottom=1in,left=1in,right=1in,marginparwidth=1in]{geometry}
+
+%% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{CSE 802 Project Proposal}
+\author{Matthew Andres Moreno, Angela Morrison, Jie Wan}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Your abstract.
+\end{abstract}
+
+\section{Introduction}
+
+% Your introduction goes here! Some examples of commonly used commands and features are listed below, to help you get started. If you have a question, please use the help menu (``?'') on the top bar to search for help or ask us a question. 
+
+Online shopping has become more and more popular as computers have become a more common household item. Sites such as Amazon, eBay, and the like have grown over  the last decade as the ease of shopping online has grown due to next day delivery, searching for specific products, and most of all selling used products to others. With this new market a common question arises: how can we know that the items we are ordering are indeed what they are hoping to be? Without being able to hold or sometimes even see the item, it is hard to know what one might be getting when ordering an item from an unknown seller that could be thousands of miles away. The answer to this question is online reviews.
+
+Leaving reviewers for certain products or even about certain sellers has become common place in online shopping. Smart shoppers do a lot of research before hitting that checkout button, and our goal for this project to determine if their time is well spent pouring through the reviews they see online. We plan have a sample of reviews that were left for certain products online. By creating a classification method, we want to determine the importance of each review left. An example might be someone leaving a one star review, and their only comment being "did not enjoy." This type of comment adds no further knowledge to the buyer, and would therefore be a waste to take into account when seeing the average star review for a product.  
+
+\section{Method}
+We are planning to use machine learning algorithm to analyze review and adjust our model automatically as we classify more and more review data. To achieve that, we need to do natural language processing, build a classifier model and filter feature by correctness and error rate.
+
+\subsection{Natural Language Processing - Nature Language Toolkit}
+The NLTK library provides many algorithms and supports many languages, so extending the functionality of ACRA is as simple as swapping in an algorithm to deal with a different language. A library is used over an API to reduce the number of external calls from our system. Once features are extracted from user reviews, they will be handed to a model in Amazon Machine Learning to be classified.
+
+\subsection{Bag of Words}
+Bag-of-words model is a simplifying representation used in natural language processing and information retrieval. A product review is represented as the bag of its words, disregarding grammar and even word order but keep number of replications. Bag-of-words is commonly used in methods of document classification where the frequency of each word is used as a feature for training a classifier.
+
+\subsection{Feature Selection}
+There could be a lot of features that can be used to classify a product review, such as the length of review, readability using ARI(Automated Readability Index) and semantic patterns using TF-IDF(term frequency-inverse document frequency). In addition, out review data also come with the number of stars which represents if it is a positive or negative review, and vote of helpful. We think we can use those features to adjust our classifier and error rate.
+
+\section{DataSet}
+
+Our dataset is a labeled subset of Amazon review data made available by Julian McAuley at \url{http://jmcauley.ucsd.edu/data/amazon/} \cite{he2016ups, mcauley2015image}.
+The unlabeled dataset includes reviews for products across a variety of 24 Amazon departments including Books, Electronics, Movies and TV, CDs and Vinyl, Clothing, Shoes and Jewelry, Home and Kitchen, Kindle Store, etc.
+The unlabeled dataset includes the fields:
+\begin{itemize}
+\item \texttt{reviewerID}, a unique identifying string that identifies the user who left a review
+\item \texttt{asin}, a unique identifier for the product being reviewed;
+\item \texttt{reviewerName}, the username of the reviewer;
+\item \texttt{helpful}, a two-element tuple describing the number of users who marked the review ``helpful'' and the number of users who marked the review as ``not helpful;''
+\item \texttt{reviewText}, the text of the review;
+\item \texttt{overall}, the rating out of five stars provided by the reviewer;
+\item \texttt{summary}, the title of the review;
+\item \texttt{unixReviewTime} and \texttt{reviewTime}, timestamps of the review.
+\end{itemize}
+
+
+In addition, Julian McAuley provides metadata that describes characteristics of products being reviewed including text description, price, sales-rank, brand info, and co-purchasing links (i.e. related products that customers bought, related products that customers viewed).
+
+Our labeled subset contains 3000 reviews drawn from the electronics department.
+In addition to the fields provided above, reviews in our labeled subset include the binary label \texttt{helpful}/\texttt{not helpful}.
+This label was assigned manually by Jie and collaborators based on whether the review contained relevant, specific information describing the product and its performance (i.e. providing specific reasons \textit{why} they assigned it a particular overall review.
+Our labeled dataset is formatted as a single, tidy JSON file, so working with the dataset in modern data analysis frameworks (e.g. pandas) will be straightforward.
+
+
+\bibliographystyle{acm}
+\bibliography{sample}
+
+\end{document}
